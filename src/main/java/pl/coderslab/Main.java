@@ -8,20 +8,57 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        String[][] array = new String[2][3];
-        readFromFile(array);
 
         String[] menu = new String[4];
-        menu = menuArray(menu);
-        System.out.println(Arrays.toString(menu));
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
+
+
+
+        while (option != 4) {
+            menuArray(menu);
+            option = getUserOption(scanner);
+
+            switch (option) {
+                case 1:
+                    addTask();
+                    break;
+                case 2:
+                    deleteTask();
+                    break;
+                case 3:
+                    readFromFile();
+                    break;
+                case 4:
+                    exit();
+                    break;
+                default:
+                    System.out.println("Niepoprawna opcja. Wybierz numer od 1 do 4.");
+                    break;
+            }
+        }
+        scanner.close(); // Zamykamy Scanner po zakończeniu
     }
+
+    public static int getUserOption(Scanner scanner) {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Niepoprawna opcja. Wybierz numer od 1 do 4.");
+            scanner.next(); // Odrzucamy nieprawidłowe dane wejściowe
+        }
+        return scanner.nextInt();
+    }
+
+    private static void exit() {
+    }
+
+
 
     public static String[] menuArray(String[] menu) {
         System.out.println(ConsoleColors.BLUE + "Proszę wybrać opcję:" + ConsoleColors.RESET);
-        menu[0] = "Dodaj";
-        menu[1] = "Usuń";
-        menu[2] = "Lista";
-        menu[3] = "Wyjdź";
+        menu[0] = "1: Add";
+        menu[1] = "2: Remove";
+        menu[2] = "3: List";
+        menu[3] = "4: Exit";
 
         for (String menuItem : menu) {
             System.out.println(menuItem);
@@ -29,7 +66,7 @@ public class Main {
         return menu;
     }
 
-    public static void readFromFile(String[][] tasks) {
+    public static void readFromFile() {
         StringBuilder reading = new StringBuilder();
         File file = new File("C:\\Users\\Mojescik\\IdeaProjects\\TaskManager\\src\\main\\resources\\tasks.csv");
         try {
@@ -45,4 +82,13 @@ public class Main {
             System.out.println("Plik nie został znaleziony. " + e);
         }
     }
+
+    public static void addTask() {
+
+    }
+
+    public static void deleteTask() {
+
+    }
+
 }
